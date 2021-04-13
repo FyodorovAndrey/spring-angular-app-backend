@@ -3,6 +3,7 @@ package com.nvfredy.springangularappbackend.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nvfredy.springangularappbackend.entity.enums.Role;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.util.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -21,9 +23,9 @@ public class User implements UserDetails {
     private String username;
     @Column(length = 3000)
     private String password;
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
     @Column(unique = true)
     private String email;
@@ -37,7 +39,7 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
     @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss")
-    @Column(updatable = false)
+    @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate;
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
