@@ -23,8 +23,8 @@ public class ImageController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<MessageResponse> uploadUserImage(@RequestParam("file") MultipartFile file,
-                                                           Principal principal) throws IOException {
+    public ResponseEntity<MessageResponse> uploadProfileImage(@RequestParam("file") MultipartFile file,
+                                                              Principal principal) throws IOException {
         imageService.uploadUserProfileImage(file, principal);
 
         return new ResponseEntity<>(new MessageResponse("Image was upload to profile"), HttpStatus.OK);

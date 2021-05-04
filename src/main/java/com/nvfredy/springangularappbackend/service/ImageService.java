@@ -61,25 +61,19 @@ public class ImageService {
         return imageRepository.save(image);
     }
 
-    public Image uploadPostImage(MultipartFile file, Principal principal, Long postId) {
+    public Image uploadPostImage(MultipartFile file, Principal principal, Long postId) throws IOException {
         User user = findUserByPrincipal(principal);
         Post post = user.getPosts()
                 .stream()
                 .filter(p -> p.getId().equals(postId))
                 .collect(toSinglePostCollector());
 
-        Image image = null;
-        try {
-            image = new Image();
-            image.setUserId(user.getId());
-            image.setBytes(compressBytes(file.getBytes()));
-            image.setName(file.getOriginalFilename());
-            image.setPostId(post.getId());
-            LOGGER.info("Uploading image for post: {}", post.getId());
-        } catch (IOException e) {
-            LOGGER.error("Error in uploadPostImage method");
-        }
-
+        Image image = new Image();
+//        image.setUserId(user.getId());
+        image.setBytes(compressBytes(file.getBytes()));
+        image.setName(file.getOriginalFilename());
+        image.setPostId(post.getId());
+        LOGGER.info("Uploading image for post: {}", post.getId());
 
         return imageRepository.save(image);
     }

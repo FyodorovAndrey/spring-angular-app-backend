@@ -2,15 +2,13 @@ package com.nvfredy.springangularappbackend.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-
 @Data
 public class CommentDTO {
 
     private Long id;
-    @NotEmpty
+//    @NotEmpty
     private String message;
-    @NotEmpty
+//    @NotEmpty
     private String username;
 
 }

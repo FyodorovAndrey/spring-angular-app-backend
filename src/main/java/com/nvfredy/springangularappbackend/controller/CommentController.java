@@ -47,8 +47,8 @@ public class CommentController {
         return new ResponseEntity<>(createdComment, HttpStatus.OK);
     }
 
-    @GetMapping("{postId}/all")
-    public ResponseEntity<List<CommentDTO>> getAllCommentsToPost(@PathVariable("postId") String postId) {
+    @GetMapping("/{postId}/all")
+    public ResponseEntity<List<CommentDTO>> getAllCommentsForPost(@PathVariable("postId") String postId) {
         List<CommentDTO> commentDTOList = commentService.findAllCommentsForPost(Long.parseLong(postId))
                 .stream()
                 .map(commentFacade::commentToCommentDTO)
